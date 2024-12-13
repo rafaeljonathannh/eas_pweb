@@ -1,0 +1,100 @@
+/* General body styling */
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../resource/register_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end; /* Align the white box to the right */
+    align-items: center;
+    height: 100vh;
+}
+
+/* Form container with the white box */
+.form-container {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 40px;
+    width: 40%; /* Adjust width to your preference */
+    margin-right: 5%; /* Add some spacing from the edge */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Consistent spacing between elements */
+}
+
+/* Input fields and select drop downs */
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0; /* Adjust spacing between elements */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-container label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block; /* Ensure labels take full width */
+    font-size: 14px; /* Matches font size for consistency */
+}
+
+/* Date of Birth Container */
+.dob-container {
+    display: flex;
+    gap: 10px; /* Adds space between dropdowns */
+}
+
+.dob-container select {
+    flex: 1; /* Ensures dropdowns are evenly spaced */
+}
+
+/* Buttons */
+.form-container input[type="submit"] {
+    background-color: #D4AF37;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #B8860B;
+}
+
+/* Link styling */
+.form-container p a {
+    color: blue;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-container p a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        justify-content: center; /* Center the box on small screens */
+    }
+
+    .form-container {
+        width: 90%; /* Make the box wider on small screens */
+        margin-right: 0;
+    }
+
+    .dob-container {
+        flex-direction: column; /* Stacks dropdowns */
+    }
+}
