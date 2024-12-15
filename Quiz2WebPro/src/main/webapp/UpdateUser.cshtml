@@ -1,0 +1,75 @@
+@{
+    Layout = null;
+    ViewData["Title"] = "Update Profile";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="~/css/inputproduct.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <title>Update Profile</title>
+    <script>
+        async function updateProfile(event) {
+            event.preventDefault();
+
+            const payload = {
+                fullName: document.getElementById("userFullName").value,
+                email: document.getElementById("userEmail").value,
+                address: document.getElementById("userAddress").value
+            };
+
+            try {
+                const response = await fetch('/api/Auth/updateProfile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    window.location.href = '/Profile'; // Redirect to profile page
+                } else {
+                    alert("Error: " + result.message);
+                }
+            } catch (error) {
+                alert("An error occurred: " + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li><a href="/Dashboard"><img src="~/resource/logo.png" height="20px" /></a></li>
+        <li><a class="active" href="/Profile">Profile</a></li>
+    </ul>
+    <main>
+        <div class="form-container">
+            <h1>Update Profile</h1>
+            <form onsubmit="updateProfile(event)">
+                <table>
+                    <tr>
+                        <td><label for="userFullName">Full Name</label></td>
+                        <td><input type="text" id="userFullName" name="userFullName" required /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="userEmail">Email</label></td>
+                        <td><input type="email" id="userEmail" name="userEmail" required /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="userAddress">Address</label></td>
+                        <td><input type="text" id="userAddress" name="userAddress" required /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit">Update</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
