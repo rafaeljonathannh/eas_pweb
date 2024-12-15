@@ -1,0 +1,84 @@
+@{
+    Layout = null;
+    ViewData["Title"] = "Insert Product";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="~/css/inputproduct.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <title>Storify</title>
+    <script>
+        async function submitProduct(event) {
+            event.preventDefault(); 
+
+            const productName = document.getElementById("productName").value;
+            const productQuantity = document.getElementById("productQuantity").value;
+            const productPrice = document.getElementById("productPrice").value;
+
+            const payload = {
+                productName: productName,
+                productQuantity: productQuantity,
+                productPrice: productPrice
+            };
+
+            try {
+                const response = await fetch('/api/Product/inputProduct', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message);
+                    document.getElementById("productForm").reset();
+                } else {
+                    alert("Error: " + result.message);
+                }
+            } catch (error) {
+                alert("An error occurred: " + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li><a href="/Dashboard"><img src="~/resource/logo.png" height="20px" /></a></li>
+        <li><a class="active" href="/Product/Input">Input Product</a></li>
+        <li><a href="/Profile">Profile</a></li>
+    </ul>
+
+    <main>
+        <div class="form-container">
+            <h1>Insert Product</h1>
+            <form id="productForm" onsubmit="submitProduct(event)">
+                <table>
+                    <tr>
+                        <td><label for="productName">Product Name</label></td>
+                        <td><input type="text" id="productName" name="productName" required /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="productQuantity">Product Quantity</label></td>
+                        <td><input type="number" id="productQuantity" name="productQuantity" required /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="productPrice">Product Price</label></td>
+                        <td><input type="number" step="0.01" id="productPrice" name="productPrice" required /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

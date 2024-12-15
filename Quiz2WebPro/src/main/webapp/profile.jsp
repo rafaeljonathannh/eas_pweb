@@ -33,7 +33,7 @@
                 } else {
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
-                        String url = "jdbc:mysql://localhost:3306/storify";
+                        String url = "jdbc:mysq     l://localhost:3306/storify";
                         String username = "root";
                         String password = "";
                         String query = "SELECT * FROM users WHERE UserName = ?";
