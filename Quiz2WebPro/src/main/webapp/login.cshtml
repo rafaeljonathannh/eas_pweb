@@ -1,0 +1,67 @@
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        async function submitLogin(event) {
+            event.preventDefault(); 
+            
+            const username = document.getElementById("txtUsername").value;
+            const password = document.getElementById("txtPassword").value;
+
+            const payload = {
+                username: username,
+                password: password
+            };
+
+            try {
+                const response = await fetch('/api/Auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert(result.message);
+                    window.location.href = result.redirectUrl; 
+                } else {
+                    alert("Error: " + result.message);
+                }
+            } catch (error) {
+                alert("An error occurred: " + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <img src="~/resource/logo_white.png" alt="logo pict">
+
+    <!-- Login Form -->
+    <form onsubmit="submitLogin(event)">
+        <table>
+            <tr>
+                <td>Username: <input type="text" id="txtUsername" name="txtUsername" required /></td>
+            </tr>
+            <tr>
+                <td>Password: <input type="password" id="txtPassword" name="txtPassword" required /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
+        </table>
+        <p>If you don't have an account, click <a href="/Register">here</a> to register.</p>
+    </form>
+</body>
+</html>
